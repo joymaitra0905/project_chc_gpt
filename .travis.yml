@@ -1,0 +1,30 @@
+dist: xenial
+language: python
+python:
+  "2.7"
+# Fix for bug in boto imported by moto. https://github.com/spulec/moto/issues/1771
+before_install:
+  - export BOTO_CONFIG=/dev/null
+  - export AWS_DEFAULT_REGION=us-east-1
+  - export AWS_ACCESS_KEY_ID=fake
+  - export AWS_SECRET_ACCESS_KEY=fake
+  - virtualenv /opt/py2_env
+install:
+  - cd ${TRAVIS_BUILD_DIR}
+  - pip install -r requirements.txt
+# Run linter & unit tests
+script:
+  - flake8
+  - |
+    pytest \
+    --cov=cim_ingest \
+    --cov=edl \
+    --cov=deploy \
+    --cov=dms \
+    --cov=pipelines \
+    --cov=rest_api \
+    --cov=utils
+  - |
+    source /opt/py2_env/bin/activate
+    python setup.py install
+    python -c 'from edl import cloudformation, utils'

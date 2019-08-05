@@ -1,0 +1,12 @@
+databricks/build
+databricks/cdo_tools.egg-info
+databricks/dist
+venv/
+*__pycache__
+*.pyc
+*.zip
+.eggs/
+edl.egg-info/
+.coverage
+.~c9_*
+.edl_session
