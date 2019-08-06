@@ -1,0 +1,4 @@
+name: example-lambda
+handler: hello_world.handler
+lambda_role: LambdaInvokeLambdaRole
+timeout: 5
